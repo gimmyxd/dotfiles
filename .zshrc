@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH="/Users/gheorghe.popescu/bin:$PATH"
+export PATH="~/bin:$PATH"
 export EDITOR='subl -w'
 
 # add ssh key for vompooler
@@ -11,7 +11,7 @@ export EDITOR='subl -w'
 setopt +o nomatch
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/gheorghe.popescu/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Load custom config file
 source ~/Workspace/.env_profile

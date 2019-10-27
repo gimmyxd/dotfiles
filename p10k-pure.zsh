@@ -110,7 +110,7 @@
       if [ ${VCS_STATUS_HAS_UNTRACKED} -eq 1 ]; then
         vcs_color=$untracked
       elif [ ${VCS_STATUS_HAS_STAGED} -eq 1 ]; then
-        vcs_color=$conflicted
+        vcs_color=$modified
       elif [ ${VCS_STATUS_HAS_UNSTAGED} -eq 1 ]; then
         vcs_color=$modified
       else

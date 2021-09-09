@@ -6,18 +6,63 @@ function env_config() {
   subl ~/Workspace/.env_profile
 }
 
-# if [ $ITERM_SESSION_ID ]; then
-#   export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND";
-# fi
+############## CHECKOUT PR ##############
+function gcpr() {
+  git fetch pl \+refs/pull/$1/merge
+  git checkout FETCH_HEAD
+}
 
+############## ADD REMOTE ##############
+# gets the url for the given fork
+__addremote_url() {
+  # shellcheck disable=SC2039
+  local fork remote current
+  fork="$1"
+  if ! git config --get remote.origin.url > /dev/null 2>&1; then
+    echo "A remote called 'origin' doesn't exist. Aborting." >&2
+    return 1
+  fi
+  remote="$(git config --get remote.origin.url)"
+  current="$(echo "$remote" | sed -e 's/.*github\.com.//' -e 's/\/.*//')"
+  echo "$remote" | sed -e "s/$current/$fork/"
+}
 
+# adds a remote
+# shellcheck disable=SC2039
+add-remote() {
+  # shellcheck disable=SC2039
+  local fork="$1" name="$2" url
+  test -z "$name" && name="$fork"
+  url="$(__addremote_url "$fork")" || return 1
+  git remote add "$name" "$url"
+}
+
+# adds an upstream remote
+# shellcheck disable=SC2039
+add-upstream() {
+  add-remote "$1" "upstream"
+}
+
+# adds an puppetlabs remote
+# shellcheck disable=SC2039
+add-pl-remote() {
+  add-remote "puppetlabs" "pl"
+}
+
+############## OPEN SUBLIME PROJECT ##############
+function sp () {
+  subl "/Users/$USER/Workspace/subl_workspace/$1.sublime-workspace"
+}
+
+############## ALIASES ##############
 alias hs='history | grep --color=auto '
 alias cat=ccat
-alias be='bundle exec'
+alias bx='bundle exec'
+alias irb_h='cat /Users/$USER/.irb-history'
+alias ..='cd ..'
+alias localtime_r='bash /Users/$USER/Workspace/localtime_r.sh'
+alias work='cd $work'
 
-# platform-ci-utils
-export PACKER_REPO_PATH=~/Workspace/puppetlabs-packer
-export PACKER_VM_SRC_DIR=~/Workspace/packer/src
-export PACKER_CACHE_DIR=~/Workspace/packer/cache
-export PACKER_VM_OUT_DIR=~/Workspace/packer/out
-export PACKER_VM_B_OUT_DIR=~/Workspace/packer/out/to_build
+#############EXPORTS##############
+export HISTCONTROL=ignoreboth
+

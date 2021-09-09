@@ -1,20 +1,27 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH="~/bin:$PATH"
-export EDITOR='subl -w'
 
-# add ssh key for vompooler
-# ssh-add ~/.ssh/id_rsa-acceptance
+export GOPATH="/Users/$USER/Workspace/Golang"
+export PATH="/Users/$USER/bin:$PATH"
+export PATH=$PATH:$GOPATH/bin:/Users/$USER/go/bin
+export EDITOR='subl -w'
 
 # to work
 setopt +o nomatch
 
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 
 # Load custom config file
 source ~/Workspace/.env_profile
+
+DISABLE_AUTO_TITLE="true"
+
+precmd() {
+  # sets the tab title to current dir
+  echo -ne "\e]1;${PWD##*/}\a"
+}
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -40,7 +47,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=2
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -77,18 +84,17 @@ export UPDATE_ZSH_DAYS=2
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-syntax-highlighting
+  fast-syntax-highlighting
   zsh-autosuggestions
   osx
   z
   colored-man-pages
   ruby
-  command-not-found
   cp
-  copydir
-  copyfile
   history-search-multi-word
   rvm
+  autoupdate
+  notify
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -128,4 +134,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
-source ~/Workspace/dotfiles/p10k-pure.zsh
+source ~/Workspace/personal/dotfiles/p10k-pure.zsh
+
+
+zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"
+zstyle ':notify:*' error-title "wow such fail"
+zstyle ':notify:*' success-icon "https://s-media-cache-ak0.pinimg.com/564x/b5/5a/18/b55a1805f5650495a74202279036ecd2.jpg"
+zstyle ':notify:*' success-title "very success. wow"

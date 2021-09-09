@@ -22,11 +22,13 @@
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
 () {
-  emulate -L zsh
-  setopt no_unset
+  emulate -L zsh -o extended_glob
 
   # Unset all configuration options.
-  unset -m 'POWERLEVEL9K_*'
+  unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
+
+  # Zsh >= 5.1 is required.
+  autoload -Uz is-at-least && is-at-least 5.1 || return
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -208,7 +210,7 @@
   # Don't show @gemset at the end.
   typeset -g POWERLEVEL9K_RVM_SHOW_GEMSET=true
   # Don't show ruby- at the front.
-  typeset -g POWERLEVEL9K_RVM_SHOW_PREFIX=true
+  typeset -g POWERLEVEL9K_RVM_SHOW_PREFIX=false
 }
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}

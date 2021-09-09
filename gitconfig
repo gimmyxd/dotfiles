@@ -1,6 +1,10 @@
 [core]
   pager = diff-so-fancy | less --tabs=4 -RFX
   hooksPath = /Users/gheorghe.popescu/Workspace/git_hooks
+  ignorecase = true
+  autocrlf = false
+  excludesfile = /Users/gheorghe.popescu/.gitignore-global
+  attributesfile = /Users/gheorghe.popescu/.gitattributes
 [color]
   ui = true
 [color "diff-highlight"]

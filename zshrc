@@ -135,6 +135,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/Workspace/personal/dotfiles/p10k-pure.zsh
+source /opt/homebrew/opt/kube-ps1/share/kube-ps1.sh
+PROMPT='$(kube_ps1)'$PROMPT
 
 
 zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"

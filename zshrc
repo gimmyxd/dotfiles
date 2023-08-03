@@ -1,11 +1,23 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
 
 
-export GOPATH="/Users/$USER/Workspace/Golang"
-export PATH="/Users/$USER/bin:$PATH"
-export PATH=$PATH:$GOPATH/bin:/Users/$USER/go/bin
-export EDITOR='subl -w'
+
+# export GOPATH="/Users/$USER/Workspace/Golang"
+# export PATH="/Users/$USER/bin:$PATH"
+# export PATH="$PATH:$GOPATH/bin"
+export EDITOR='code -w'
 
 # to work
 setopt +o nomatch
@@ -28,7 +40,7 @@ precmd() {
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -47,7 +59,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=7
+export UPDATE_ZSH_DAYS=5
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -86,16 +98,18 @@ plugins=(
   git
   fast-syntax-highlighting
   zsh-autosuggestions
-  osx
+  macos
   z
   colored-man-pages
   ruby
   cp
-  history-search-multi-word
   rvm
-  autoupdate
   notify
+  alias-tips
+  autoupdate
+  H-S-MW
 )
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -128,18 +142,41 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-source ~/Workspace/personal/dotfiles/p10k-pure.zsh
-source /opt/homebrew/opt/kube-ps1/share/kube-ps1.sh
-PROMPT='$(kube_ps1)'$PROMPT
+
+source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+source ~/Workspace/dotfiles/p10k-pure.zsh
+source <(stern --completion=zsh)
 
 
 zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"
 zstyle ':notify:*' error-title "wow such fail"
 zstyle ':notify:*' success-icon "https://s-media-cache-ak0.pinimg.com/564x/b5/5a/18/b55a1805f5650495a74202279036ecd2.jpg"
 zstyle ':notify:*' success-title "very success. wow"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+[[ -s "/Users/gimmy/.gvm/scripts/gvm" ]] && source "/Users/gimmy/.gvm/scripts/gvm"
+
+# eval "$(atuin init zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/gimmy/Workspace/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/gimmy/Workspace/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/gimmy/Workspace/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/gimmy/Workspace/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export M2_HOME=/Users/gimmy/Downloads/apache-maven-3.9.2
+export PATH="${M2_HOME}/bin:${PATH}"
+
+# eval "$(starship init zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
